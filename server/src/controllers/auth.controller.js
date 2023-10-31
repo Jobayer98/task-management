@@ -2,7 +2,28 @@ const userModel = require("../models/user.model");
 
 const signup = async (req, res, next) => {
   try {
-    const user = await userModel.create(req.body);
+    const { name, email, password } = req.body;
+
+    if (!name || !email || !password) {
+      return res.status(400).json({
+        success: false,
+        message: "Please provide name, email and password",
+      });
+    }
+
+    const user = await userModel.create({
+      name,
+      email,
+      password,
+    });
+
+    if (!user) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid email or password",
+      });
+    }
+
     res.status(201).json({
       success: true,
       user,
@@ -13,6 +34,43 @@ const signup = async (req, res, next) => {
       message: error.message,
     });
   }
+};
+
+// login handler
+const login = async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({
+        success: false,
+        message: "Please provide email and password",
+      });
+    }
+
+    const user = await userModel.findOne({ email });
+
+    if (!user) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid email or password",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      user,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+module.exports = {
+  login,
 };
 
 module.exports = {
