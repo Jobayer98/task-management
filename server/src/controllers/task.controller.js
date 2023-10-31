@@ -1,5 +1,6 @@
 const taskModel = require("../models/task.model");
 
+// create task
 const createTask = async (req, res, next) => {
   try {
     const { title, description, status } = req.body;
@@ -37,6 +38,38 @@ const createTask = async (req, res, next) => {
   }
 };
 
+// get all tasks
+const getTasks = async (req, res, next) => {
+  try {
+    const tasks = await taskModel.find({ user: req.user._id });
+
+    if (!tasks) {
+      return res.status(400).json({
+        success: false,
+        message: "Something went wrong",
+      });
+    }
+
+    if (!tasks.length) {
+      return res.status(404).json({
+        success: false,
+        message: "No tasks found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      tasks,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
 module.exports = {
   createTask,
+  getTasks,
 };
