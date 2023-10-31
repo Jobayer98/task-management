@@ -99,13 +99,39 @@ const getTask = async (req, res, next) => {
 const updateTask = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const { title, description, status } = req.body;
 
     const task = await taskModel.findOneAndUpdate(
       { _id: id, user: req.user._id },
-      { title, description, status },
+      ...req.body,
       { new: true, runValidators: true }
     );
+
+    if (!task) {
+      return res.status(404).json({
+        success: false,
+        message: "Task not found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      task,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+const deleteTask = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    const task = await taskModel.findOneAndDelete({
+      _id: id,
+      user: req.user._id,
+    });
 
     if (!task) {
       return res.status(404).json({
@@ -131,4 +157,5 @@ module.exports = {
   getTasks,
   getTask,
   updateTask,
+  deleteTask,
 };
