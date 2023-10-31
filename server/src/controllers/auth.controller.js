@@ -1,5 +1,6 @@
 const userModel = require("../models/user.model");
 
+// signup handler
 const signup = async (req, res, next) => {
   try {
     const { name, email, password } = req.body;
@@ -69,10 +70,28 @@ const login = async (req, res, next) => {
   }
 };
 
-module.exports = {
-  login,
+//logout handler
+const logout = async (req, res, next) => {
+  try {
+    res.cookie.set("token", null, {
+      httpOnly: true,
+      expires: new Date(0),
+    });
+
+    res.status(200).json({
+      success: true,
+      message: "Logout successful",
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
 };
 
 module.exports = {
   signup,
+  login,
+  logout,
 };
