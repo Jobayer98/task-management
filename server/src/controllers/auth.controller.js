@@ -1,5 +1,10 @@
 const userModel = require("../models/user.model");
 
+const options = {
+  httpOnly: true,
+  expires: new Date(Date.now() + 1 * 60 * 60 * 1000),
+};
+
 // signup handler
 const signup = async (req, res, next) => {
   try {
@@ -25,9 +30,12 @@ const signup = async (req, res, next) => {
       });
     }
 
-    res.status(201).json({
+    const token = await user.generateToken();
+
+    res.status(201).cookie("token", token, options).json({
       success: true,
       user,
+      token,
     });
   } catch (error) {
     return res.status(400).json({
@@ -67,9 +75,12 @@ const login = async (req, res, next) => {
       });
     }
 
-    res.status(200).json({
+    const token = await user.generateToken();
+
+    res.status(200).cookie("token", token, options).json({
       success: true,
       user,
+      token,
     });
   } catch (error) {
     return res.status(500).json({
@@ -82,11 +93,7 @@ const login = async (req, res, next) => {
 //logout handler
 const logout = async (req, res, next) => {
   try {
-    res.cookie.set("token", null, {
-      httpOnly: true,
-      expires: new Date(0),
-    });
-
+    res.clearCookie("token");
     res.status(200).json({
       success: true,
       message: "Logout successful",

@@ -54,4 +54,14 @@ userSchema.methods.toJSON = function () {
   delete userObject.password;
   return userObject;
 };
+
+// generate token
+userSchema.methods.generateToken = async function () {
+  const user = this;
+  const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
+    expiresIn: "1d",
+  });
+
+  return token;
+};
 module.exports = model("User", userSchema);
