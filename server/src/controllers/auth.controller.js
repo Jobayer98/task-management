@@ -58,6 +58,15 @@ const login = async (req, res, next) => {
       });
     }
 
+    const isMatch = await user.comparePassword(password);
+
+    if (!isMatch) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid email or password",
+      });
+    }
+
     res.status(200).json({
       success: true,
       user,
