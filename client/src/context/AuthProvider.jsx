@@ -6,10 +6,9 @@ const AuthProvider = ({ children }) => {
 
   const signup = (data) => {
     setUser(data);
-    console.log(data);
   };
   const login = (data) => {
-    // console.log(data);
+    setUser(data);
   };
 
   const logout = async () => {};

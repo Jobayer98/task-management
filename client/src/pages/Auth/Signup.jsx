@@ -7,11 +7,11 @@ import AuthContext from "../../context/AuthContext";
 
 function Signup() {
   const { register, handleSubmit } = useForm();
-  const { signup } = useContext(AuthContext);
+  const { login } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
 
-  // const from = location.state?.from?.pathname || "/";
+  const from = location.state?.from?.pathname || "/";
   const onSubmit = async (data) => {
     // console.log(data);
     try {
@@ -23,13 +23,12 @@ function Signup() {
         const notify = () => toast.success("Signup successfully");
         notify();
         localStorage.setItem("token", response.data.token);
-        signup(response.data.user);
-        // navigate(from, { replace: true });
+        login(response.data.user);
+        navigate(from, { replace: true });
       }
     } catch (error) {
       const notify = () => toast.error("Something went wrong");
       notify();
-      console.log(error);
     }
   };
 

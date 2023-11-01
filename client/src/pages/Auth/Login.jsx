@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import AuthContext from "../../context/AuthContext";
 import { useContext } from "react";
@@ -6,9 +6,28 @@ import { useContext } from "react";
 function Login() {
   const { register, handleSubmit } = useForm();
   const { login } = useContext(AuthContext);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const from = location.state?.from?.pathname || "/";
   const onSubmit = async (data) => {
     // console.log(data);
-    login(data);
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/v1/login",
+        data
+      );
+      if (response.data) {
+        const notify = () => toast.success("Login successfully");
+        notify();
+        localStorage.setItem("token", response.data.token);
+        signup(response.data.user);
+        navigate(from, { replace: true });
+      }
+    } catch (error) {
+      const notify = () => toast.error("Something went wrong");
+      notify();
+    }
   };
   return (
     <section className="flex justify-center pt-12 mb-12">
