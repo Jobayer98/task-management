@@ -31,6 +31,12 @@ const userSchema = new Schema(
   }
 );
 
+userSchema.virtual("tasks", {
+  ref: "Task",
+  localField: "_id",
+  foreignField: "user",
+});
+
 // hash password
 userSchema.pre("save", async function (next) {
   const user = this;

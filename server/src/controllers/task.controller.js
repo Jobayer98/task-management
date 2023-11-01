@@ -41,7 +41,28 @@ const createTask = async (req, res, next) => {
 // get all tasks
 const getTasks = async (req, res, next) => {
   try {
-    const tasks = await taskModel.find({ user: req.user._id });
+    const { status, limit, page, sortBy, search } = req.query;
+    const match = {};
+    const sort = {};
+    const skip = (parseInt(page) - 1) * parseInt(limit);
+
+    if (status) {
+      match.status = status;
+    }
+
+    if (sortBy) {
+      sort.createdAt = sortBy === "desc" ? -1 : 1;
+    }
+    await req.user.populate({
+      path: "tasks",
+      match,
+      options: {
+        limit: parseInt(limit),
+        skip,
+        sort,
+      },
+    });
+    const tasks = req.user.tasks;
 
     if (!tasks) {
       return res.status(400).json({
