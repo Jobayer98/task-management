@@ -1,12 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { AiOutlineEdit } from "react-icons/ai";
-import { MdDeleteOutline } from "react-icons/md";
-import DeleteModal from "./DeleteTask";
+import Task from "./Task";
 
 function TasksList() {
   const [tasks, setTasks] = useState([]);
-  const [showModal, setShowModal] = useState(false);
+  const [isTaskDeleted, setIsTaskDeleted] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -20,51 +18,15 @@ function TasksList() {
           setTasks(response.data.tasks);
         });
     })();
-  }, [showModal]);
+  }, [isTaskDeleted]);
 
-  const onOpenModal = async (id) => {
-    setShowModal(true);
+  const handleIsDeleteTask = () => {
+    setIsTaskDeleted(!isTaskDeleted);
   };
 
-  const onCloseModal = () => {
-    setShowModal(false);
-  };
-
-  const content = tasks.map((task) => {
-    return (
-      <div
-        key={task._id}
-        className="bg-blue-50 py-4 px-6 rounded shadow border"
-      >
-        <div className="float-right tooltip" data-tip="update">
-          <AiOutlineEdit className="text-xl cursor-pointer ml-3" />
-        </div>
-        <div
-          onClick={() => onOpenModal()}
-          className="float-right tooltip"
-          data-tip="delete"
-        >
-          <MdDeleteOutline className="text-xl cursor-pointer " />
-        </div>
-        <h1 className="text-xl font-medium mb-2">{task.title}</h1>
-        <p>{task.description}</p>
-        <p
-          className={`mt-4 border inline-block px-2 pt-1 pb-2 rounded ${
-            task.status === "completed"
-              ? "bg-green-500 text-white"
-              : task.status === "in-progress"
-              ? "bg-yellow-500 text-white"
-              : "bg-red-400 text-white"
-          }`}
-        >
-          {task.status}
-        </p>
-        <div>
-          {showModal && <DeleteModal onClose={onCloseModal} id={task._id} />}
-        </div>
-      </div>
-    );
-  });
+  const content = tasks.map((task) => (
+    <Task key={task._id} task={task} isDeleted={handleIsDeleteTask} />
+  ));
   return (
     <>
       <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 p-8">

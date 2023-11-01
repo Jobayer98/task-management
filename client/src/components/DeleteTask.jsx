@@ -3,7 +3,7 @@ import { toast } from "react-hot-toast";
 import classes from "./Modal.module.css";
 import axios from "axios";
 
-function DeleteTask({ onClose, id }) {
+function DeleteTask({ onClose, id, isDeleted }) {
   const handleClose = (e) => {
     if (e.target === e.currentTarget) {
       onClose();
@@ -20,11 +20,11 @@ function DeleteTask({ onClose, id }) {
           },
         }
       );
-
       if (response.data.success) {
         const notify = () => toast.success("Task deleted successfully");
         notify();
         onClose();
+        isDeleted();
       }
     } catch (error) {
       const notify = () => toast.error(error.response.data.message);
