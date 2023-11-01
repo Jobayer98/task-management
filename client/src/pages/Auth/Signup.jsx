@@ -1,6 +1,12 @@
 import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 function Signup() {
+  const { register, handleSubmit } = useForm();
+  const onSubmit = async (data) => {
+    // console.log(data);
+  };
+
   return (
     <section className="flex justify-center pt-12 mb-12">
       <div className="border p-4 rounded shadow-md">
@@ -9,14 +15,18 @@ function Signup() {
             <span className="text-[#5273df]">Task Management App</span>
           </h2>
         </div>
-        <h1 className="text-2xl font-bold">Sign Up</h1>
-        <form className="text-[#9796A1] w-[400px] flex flex-col mt-3">
+        <h1 className="text-2xl font-bold text-[#5e5d5d]">Sign Up</h1>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="text-[#9796A1] w-[400px] flex flex-col mt-3"
+        >
           <div className="my-2">
             <label className="text-left" htmlFor="fullname">
-              Full name
+              Name
             </label>
             <br />
             <input
+              {...register("name", { required: true })}
               className="focus:ring-1 focus:outline-none focus:ring-[#5273df] w-full h-12 rounded-lg pl-3 text-black border mt-2"
               type="text"
               placeholder="Your full name"
@@ -28,6 +38,7 @@ function Signup() {
             </label>
             <br />
             <input
+              {...register("email", { required: true })}
               className="focus:ring-1 focus:outline-none focus:ring-[#5273df] w-full h-12 rounded-lg pl-3 text-black border mt-2"
               type="email"
               placeholder="Your email"
@@ -39,6 +50,7 @@ function Signup() {
             </label>
             <br />
             <input
+              {...register("password", { required: true })}
               className="focus:ring-1 focus:outline-none focus:ring-[#5273df] w-full h-12 rounded-lg pl-3 text-black border mt-2"
               type="password"
               placeholder="Password"
@@ -54,7 +66,7 @@ function Signup() {
         </form>
         <p className="my-4 text-center">
           Already have an account?{" "}
-          <Link className="text-[#7EB693]" to="/login">
+          <Link className="text-[#496bda]" to="/login">
             Login
           </Link>
         </p>
