@@ -42,27 +42,38 @@ const createTask = async (req, res, next) => {
 const getTasks = async (req, res, next) => {
   try {
     const { status, limit, page, sortBy, search } = req.query;
+    let tasks;
     const match = {};
     const sort = {};
     const skip = (parseInt(page) - 1) * parseInt(limit);
 
-    if (status) {
-      match.status = status;
-    }
+    if (search) {
+      tasks = await taskModel.find({
+        user: req.user._id,
+        $or: [
+          { title: { $regex: search, $options: "i" } },
+          { description: { $regex: search, $options: "i" } },
+        ],
+      });
+    } else {
+      if (status) {
+        match.status = status;
+      }
 
-    if (sortBy) {
-      sort.createdAt = sortBy === "desc" ? -1 : 1;
+      if (sortBy) {
+        sort.createdAt = sortBy === "desc" ? -1 : 1;
+      }
+      await req.user.populate({
+        path: "tasks",
+        match,
+        options: {
+          limit: parseInt(limit),
+          skip,
+          sort,
+        },
+      });
+      tasks = req.user.tasks;
     }
-    await req.user.populate({
-      path: "tasks",
-      match,
-      options: {
-        limit: parseInt(limit),
-        skip,
-        sort,
-      },
-    });
-    const tasks = req.user.tasks;
 
     if (!tasks) {
       return res.status(400).json({
