@@ -4,7 +4,7 @@ import Pagination from "../components/Pagination";
 
 function Home() {
   return (
-    <div className="relative">
+    <div>
       <TasksList />
       <Pagination />
     </div>

@@ -1,8 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Modal from "./Modal";
 
 function TasksList() {
   const [tasks, setTasks] = useState([]);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -41,9 +43,12 @@ function TasksList() {
     );
   });
   return (
-    <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 p-8">
-      {content}
-    </div>
+    <>
+      <div>{showModal && <Modal />}</div>
+      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 p-8">
+        {content}
+      </div>
+    </>
   );
 }
 
