@@ -11,7 +11,7 @@ function Signup() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const from = location.state?.from?.pathname || "/";
+  // const from = location.state?.from?.pathname || "/";
   const onSubmit = async (data) => {
     // console.log(data);
     try {
@@ -19,17 +19,17 @@ function Signup() {
         "http://localhost:3000/api/v1/signup",
         data
       );
-      console.log(response);
       if (response.data) {
         const notify = () => toast.success("Signup successfully");
         notify();
         localStorage.setItem("token", response.data.token);
-        login(response.data.data);
-        navigate(from, { replace: true });
+        signup(response.data.user);
+        // navigate(from, { replace: true });
       }
     } catch (error) {
-      const notify = () => toast.error(`${error.response.data.msg}`);
+      const notify = () => toast.error("Something went wrong");
       notify();
+      console.log(error);
     }
   };
 
