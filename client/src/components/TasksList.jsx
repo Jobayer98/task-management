@@ -4,7 +4,7 @@ import Task from "./Task";
 
 function TasksList() {
   const [tasks, setTasks] = useState([]);
-  const [isTaskDeleted, setIsTaskDeleted] = useState(false);
+  const [change, setChanged] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -18,14 +18,14 @@ function TasksList() {
           setTasks(response.data.tasks);
         });
     })();
-  }, [isTaskDeleted]);
+  }, [change]);
 
-  const handleIsDeleteTask = () => {
-    setIsTaskDeleted(!isTaskDeleted);
+  const handleIsChangeTask = () => {
+    setChanged(!change);
   };
 
   const content = tasks.map((task) => (
-    <Task key={task._id} task={task} isDeleted={handleIsDeleteTask} />
+    <Task key={task._id} task={task} isChanged={handleIsChangeTask} />
   ));
   return (
     <>

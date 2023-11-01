@@ -2,22 +2,28 @@ import { useState } from "react";
 import { AiOutlineEdit } from "react-icons/ai";
 import { MdDeleteOutline } from "react-icons/md";
 import DeleteTask from "./DeleteTask";
+import UpdateTask from "./UpdateTask";
 
-function Task({ task, isDeleted }) {
+function Task({ task, isChanged }) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
 
   const onClose = () => {
     setShowDeleteModal(false);
+    setShowUpdateModal(false);
   };
 
   return (
     <div className="bg-blue-50 py-4 px-6 rounded shadow border">
-      <div className="float-right tooltip" data-tip="update">
+      <div
+        onClick={() => setShowUpdateModal(true)}
+        className="float-right tooltip"
+        data-tip="update"
+      >
         <AiOutlineEdit className="text-xl cursor-pointer ml-3" />
       </div>
       <div
-        onClick={() => setShowDeleteModal(!showDeleteModal)}
+        onClick={() => setShowDeleteModal(true)}
         className="float-right tooltip"
         data-tip="delete"
       >
@@ -38,7 +44,10 @@ function Task({ task, isDeleted }) {
       </p>
       <div>
         {showDeleteModal && (
-          <DeleteTask onClose={onClose} id={task._id} isDeleted={isDeleted} />
+          <DeleteTask onClose={onClose} id={task._id} isChanged={isChanged} />
+        )}
+        {showUpdateModal && (
+          <UpdateTask onClose={onClose} task={task} isChanged={isChanged} />
         )}
       </div>
     </div>
