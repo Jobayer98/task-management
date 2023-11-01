@@ -2,6 +2,8 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import AuthContext from "../../context/AuthContext";
 import { useContext } from "react";
+import { toast } from "react-hot-toast";
+import axios from "axios";
 
 function Login() {
   const { register, handleSubmit } = useForm();
@@ -21,11 +23,11 @@ function Login() {
         const notify = () => toast.success("Login successfully");
         notify();
         localStorage.setItem("token", response.data.token);
-        signup(response.data.user);
+        login(response.data.user);
         navigate(from, { replace: true });
       }
     } catch (error) {
-      const notify = () => toast.error("Something went wrong");
+      const notify = () => toast.error(error.response.data.message);
       notify();
     }
   };
