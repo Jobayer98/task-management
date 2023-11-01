@@ -1,10 +1,14 @@
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import AuthContext from "../../context/AuthContext";
+import { useContext } from "react";
 
 function Login() {
   const { register, handleSubmit } = useForm();
+  const { login } = useContext(AuthContext);
   const onSubmit = async (data) => {
     // console.log(data);
+    login(data);
   };
   return (
     <section className="flex justify-center pt-12 mb-12">
@@ -47,7 +51,7 @@ function Login() {
             <input
               className="uppercase bg-[#5273df] hover:bg-[#3e56a3] font-medium text-white rounded-full w-1/2 py-[10px] cursor-pointer transition-all duration-500 ease-in-out"
               type="submit"
-              value="Sign Up"
+              value="Login"
             />
           </div>
         </form>

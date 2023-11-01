@@ -6,15 +6,17 @@ const AuthProvider = ({ children }) => {
 
   const signup = (data) => {
     console.log(data);
+    setUser(data);
   };
   const login = (data) => {
-    console.log(data);
+    // console.log(data);
   };
 
   const logout = async () => {};
 
   const userInfo = {
     user,
+    signup,
     login,
     logout,
   };
