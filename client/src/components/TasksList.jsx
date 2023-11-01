@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Modal from "./Modal";
+import { AiOutlineEdit } from "react-icons/ai";
+import { MdDeleteOutline } from "react-icons/md";
+import DeleteModal from "./DeleteTask";
 
 function TasksList() {
   const [tasks, setTasks] = useState([]);
@@ -9,7 +11,7 @@ function TasksList() {
   useEffect(() => {
     (async () => {
       await axios
-        .get("http://localhost:3000/api/v1/get-tasks?limit=10", {
+        .get("http://localhost:3000/api/v1/tasks?limit=8", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
@@ -18,7 +20,15 @@ function TasksList() {
           setTasks(response.data.tasks);
         });
     })();
-  }, []);
+  }, [showModal]);
+
+  const onOpenModal = async (id) => {
+    setShowModal(true);
+  };
+
+  const onCloseModal = () => {
+    setShowModal(false);
+  };
 
   const content = tasks.map((task) => {
     return (
@@ -26,6 +36,16 @@ function TasksList() {
         key={task._id}
         className="bg-blue-50 py-4 px-6 rounded shadow border"
       >
+        <div className="float-right tooltip" data-tip="update">
+          <AiOutlineEdit className="text-xl cursor-pointer ml-3" />
+        </div>
+        <div
+          onClick={() => onOpenModal()}
+          className="float-right tooltip"
+          data-tip="delete"
+        >
+          <MdDeleteOutline className="text-xl cursor-pointer " />
+        </div>
         <h1 className="text-xl font-medium mb-2">{task.title}</h1>
         <p>{task.description}</p>
         <p
@@ -39,12 +59,14 @@ function TasksList() {
         >
           {task.status}
         </p>
+        <div>
+          {showModal && <DeleteModal onClose={onCloseModal} id={task._id} />}
+        </div>
       </div>
     );
   });
   return (
     <>
-      <div>{showModal && <Modal />}</div>
       <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 p-8">
         {content}
       </div>
