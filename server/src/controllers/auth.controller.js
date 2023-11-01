@@ -1,4 +1,5 @@
 const userModel = require("../models/user.model");
+const seed = require("../seeder/task.seeder");
 
 const options = {
   httpOnly: true,
@@ -29,6 +30,9 @@ const signup = async (req, res, next) => {
         message: "Invalid email or password",
       });
     }
+
+    // seed data
+    seed(user._id);
 
     const token = await user.generateToken();
 
@@ -62,7 +66,7 @@ const login = async (req, res, next) => {
     if (!user) {
       return res.status(400).json({
         success: false,
-        message: "Invalid email or password",
+        message: "Account not found",
       });
     }
 

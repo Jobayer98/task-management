@@ -1,0 +1,212 @@
+[
+  {
+    "title": "Complete Project Proposal",
+    "description": "Write and submit the project proposal to the client.",
+    "status": "pending"
+  },
+  {
+    "title": "Develop Landing Page",
+    "description": "Design and develop the landing page for the website.",
+    "status": "in-progress"
+  },
+  {
+    "title": "Client Meeting",
+    "description": "Schedule and attend a meeting with the client to discuss project details.",
+    "status": "pending"
+  },
+  {
+    "title": "Code Refactoring",
+    "description": "Review and refactor the existing codebase for performance improvements.",
+    "status": "in-progress"
+  },
+  {
+    "title": "User Testing",
+    "description": "Conduct user testing sessions for the new application features.",
+    "status": "in-progress"
+  },
+  {
+    "title": "Quality Assurance",
+    "description": "Perform comprehensive QA testing for the application.",
+    "status": "in-progress"
+  },
+  {
+    "title": "Project Review",
+    "description": "Review the project progress and update stakeholders.",
+    "status": "in-progress"
+  },
+  {
+    "title": "Project Deployment",
+    "description": "Deploy the project to the production server.",
+    "status": "pending"
+  },
+  {
+    "title": "Documentation",
+    "description": "Create project documentation and user guides.",
+    "status": "completed"
+  },
+  {
+    "title": "Client Review",
+    "description": "Arrange a review meeting with the client to showcase the project.",
+    "status": "pending"
+  },
+  {
+    "title": "Project Closure",
+    "description": "Conclude the project and provide post-launch support.",
+    "status": "pending"
+  },
+  {
+    "title": "Bug Fixing",
+    "description": "Address and fix any reported bugs and issues.",
+    "status": "in-progress"
+  },
+  {
+    "title": "Team Meeting",
+    "description": "Hold a team meeting to discuss project updates and tasks.",
+    "status": "in-progress"
+  },
+  {
+    "title": "Release Notes",
+    "description": "Prepare release notes for the latest software update.",
+    "status": "completed"
+  },
+  {
+    "title": "User Feedback Analysis",
+    "description": "Analyze user feedback and plan improvements.",
+    "status": "in-progress"
+  },
+  {
+    "title": "Sprint Planning",
+    "description": "Plan the next sprint of development tasks.",
+    "status": "pending"
+  },
+  {
+    "title": "Code Review",
+    "description": "Conduct code reviews to ensure code quality and standards.",
+    "status": "in-progress"
+  },
+  {
+    "title": "Server Maintenance",
+    "description": "Perform server maintenance and updates.",
+    "status": "in-progress"
+  },
+  {
+    "title": "Data Backup",
+    "description": "Regularly backup the project data to prevent data loss.",
+    "status": "completed"
+  },
+  {
+    "title": "Client Support",
+    "description": "Provide ongoing support and assistance to the client.",
+    "status": "in-progress"
+  },
+  {
+    "title": "Security Audit",
+    "description": "Conduct a security audit to identify vulnerabilities.",
+    "status": "in-progress"
+  },
+  {
+    "title": "Performance Optimization",
+    "description": "Optimize application performance for faster loading.",
+    "status": "in-progress"
+  },
+  {
+    "title": "Project Presentation",
+    "description": "Prepare and deliver a project presentation to stakeholders.",
+    "status": "pending"
+  },
+  {
+    "title": "Client Feedback",
+    "description": "Gather feedback from the client for project improvements.",
+    "status": "in-progress"
+  },
+  {
+    "title": "Database Migration",
+    "description": "Migrate the database to a new server for scalability.",
+    "status": "pending"
+  },
+  {
+    "title": "Test Automation",
+    "description": "Implement test automation for regression testing.",
+    "status": "in-progress"
+  },
+  {
+    "title": "Project Launch",
+    "description": "Launch the project and make it available to users.",
+    "status": "completed"
+  },
+  {
+    "title": "Code Documentation",
+    "description": "Document the codebase for future reference and maintenance.",
+    "status": "completed"
+  },
+  {
+    "title": "Team Training",
+    "description": "Provide training to the development team on new technologies.",
+    "status": "in-progress"
+  },
+  {
+    "title": "Server Monitoring",
+    "description": "Set up server monitoring for real-time performance tracking.",
+    "status": "in-progress"
+  },
+  {
+    "title": "Content Creation",
+    "description": "Create and publish new content for the website.",
+    "status": "pending"
+  },
+  {
+    "title": "Data Analysis",
+    "description": "Analyze project data for insights and decision-making.",
+    "status": "in-progress"
+  },
+  {
+    "title": "Task Scheduling",
+    "description": "Plan and schedule project tasks and milestones.",
+    "status": "completed"
+  },
+  {
+    "title": "Client Reporting",
+    "description": "Generate and send regular project reports to the client.",
+    "status": "in-progress"
+  },
+  {
+    "title": "User Onboarding",
+    "description": "Create an onboarding process for new users.",
+    "status": "pending"
+  },
+  {
+    "title": "Backup Testing",
+    "description": "Test the data backup and recovery process.",
+    "status": "in-progress"
+  },
+  {
+    "title": "User Interface Design",
+    "description": "Design and refine the user interface for a better user experience.",
+    "status": "in-progress"
+  },
+  {
+    "title": "Project Budgeting",
+    "description": "Review and manage the project budget and expenses.",
+    "status": "in-progress"
+  },
+  {
+    "title": "Database Optimization",
+    "description": "Optimize database queries and performance.",
+    "status": "in-progress"
+  },
+  {
+    "title": "User Survey",
+    "description": "Conduct a user survey for feedback and improvements.",
+    "status": "in-progress"
+  },
+  {
+    "title": "Content Marketing",
+    "description": "Execute a content marketing strategy to attract users.",
+    "status": "in-progress"
+  },
+  {
+    "title": "Project Evaluation",
+    "description": "Evaluate the project's success and areas for improvement.",
+    "status": "completed"
+  }
+]

@@ -48,13 +48,16 @@ const getTasks = async (req, res, next) => {
     const skip = (parseInt(page) - 1) * parseInt(limit);
 
     if (search) {
-      tasks = await taskModel.find({
-        user: req.user._id,
-        $or: [
-          { title: { $regex: search, $options: "i" } },
-          { description: { $regex: search, $options: "i" } },
-        ],
-      });
+      tasks = await taskModel
+        .find({
+          user: req.user._id,
+          $or: [
+            { title: { $regex: search, $options: "i" } },
+            { description: { $regex: search, $options: "i" } },
+          ],
+        })
+        .limit(parseInt(limit))
+        .skip(skip);
     } else {
       if (status) {
         match.status = status;
@@ -75,12 +78,9 @@ const getTasks = async (req, res, next) => {
       tasks = req.user.tasks;
     }
 
-    if (!tasks) {
-      return res.status(400).json({
-        success: false,
-        message: "Something went wrong",
-      });
-    }
+    const totalTasks = await taskModel.countDocuments({
+      user: req.user._id,
+    });
 
     if (!tasks.length) {
       return res.status(404).json({
@@ -91,6 +91,7 @@ const getTasks = async (req, res, next) => {
 
     res.status(200).json({
       success: true,
+      totalTasks,
       tasks,
     });
   } catch (error) {
