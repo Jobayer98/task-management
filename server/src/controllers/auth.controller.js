@@ -66,7 +66,7 @@ const login = async (req, res, next) => {
     if (!user) {
       return res.status(400).json({
         success: false,
-        message: "Account not found",
+        message: "Account doesn't not exist",
       });
     }
 
