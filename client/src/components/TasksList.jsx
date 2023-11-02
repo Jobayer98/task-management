@@ -14,7 +14,7 @@ function TasksList() {
   const [perPage, setPerPage] = useState(8);
   const [page, setPage] = useState(1);
   const [status, setStatus] = useState("");
-  const [sort, setSort] = useState("desc");
+  const [sort, setSort] = useState("");
 
   useEffect(() => {
     (async () => {
@@ -80,8 +80,8 @@ function TasksList() {
             id=""
             onChange={(e) => setSort(e.target.value)}
           >
-            <option value="asc">Ascending</option>
             <option value="desc">Descending</option>
+            <option value="asc">Ascending</option>
           </select>
         </div>
         <div>

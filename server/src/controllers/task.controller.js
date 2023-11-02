@@ -42,7 +42,7 @@ const createTask = async (req, res, next) => {
 const getTasks = async (req, res, next) => {
   try {
     const { status, limit, page, sortBy, search } = req.query;
-    let tasks;
+    let tasks, totalTasks;
     const match = {};
     const sort = {};
     const skip = (parseInt(page) - 1) * parseInt(limit);
@@ -61,6 +61,14 @@ const getTasks = async (req, res, next) => {
     } else {
       if (status) {
         match.status = status;
+        totalTasks = await taskModel.countDocuments({
+          user: req.user._id,
+          status,
+        });
+      } else {
+        totalTasks = await taskModel.countDocuments({
+          user: req.user._id,
+        });
       }
 
       if (sortBy) {
@@ -77,10 +85,6 @@ const getTasks = async (req, res, next) => {
       });
       tasks = req.user.tasks;
     }
-
-    const totalTasks = await taskModel.countDocuments({
-      user: req.user._id,
-    });
 
     if (!tasks.length) {
       return res.status(404).json({
