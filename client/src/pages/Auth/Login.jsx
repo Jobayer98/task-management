@@ -1,14 +1,34 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import AuthContext from "../../context/AuthContext";
 import { useContext } from "react";
+import { toast } from "react-hot-toast";
+import { axiosInstance } from "../../utils/axios";
 
 function Login() {
   const { register, handleSubmit } = useForm();
   const { login } = useContext(AuthContext);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const from = location.state?.from?.pathname || "/";
   const onSubmit = async (data) => {
     // console.log(data);
-    login(data);
+    try {
+      const response = await axiosInstance.post("/login", data);
+      if (response.data) {
+        const notify = () => toast.success("Login successfully");
+        notify();
+        localStorage.clear();
+        localStorage.setItem("token", response.data.token);
+        login(response.data.user);
+        localStorage.setItem("user", JSON.stringify(response.data.user));
+        navigate(from, { replace: true });
+      }
+    } catch (error) {
+      const notify = () => toast.error(error.response.data.message);
+      notify();
+    }
   };
   return (
     <section className="flex justify-center pt-12 mb-12">
@@ -33,6 +53,7 @@ function Login() {
               className="focus:ring-1 focus:outline-none focus:ring-[#5273df] w-full h-12 rounded-lg pl-3 text-black border mt-2"
               type="email"
               placeholder="Your email"
+              defaultValue={"a@g.com"}
             />
           </div>
           <div className="my-2">
@@ -45,6 +66,7 @@ function Login() {
               className="focus:ring-1 focus:outline-none focus:ring-[#5273df] w-full h-12 rounded-lg pl-3 text-black border mt-2"
               type="password"
               placeholder="Password"
+              defaultValue={"123456"}
             />
           </div>
           <div className="flex justify-center mt-8">
