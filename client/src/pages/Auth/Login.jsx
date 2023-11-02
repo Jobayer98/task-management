@@ -8,24 +8,22 @@ import { axiosInstance } from "../../utils/axios";
 function Login() {
   const { register, handleSubmit } = useForm();
   const { login } = useContext(AuthContext);
-  const location = useLocation();
   const navigate = useNavigate();
 
-  const from = location.state?.from?.pathname || "/";
   const onSubmit = async (data) => {
     // console.log(data);
     try {
       const response = await axiosInstance.post("/login", data);
-      if (response.data) {
+      if (response.data.success) {
         const notify = () => toast.success("Login successfully");
         notify();
         localStorage.clear();
         localStorage.setItem("token", response.data.token);
         login(response.data.user);
-        localStorage.setItem("user", JSON.stringify(response.data.user));
-        navigate(from, { replace: true });
+        navigate("/", { replace: true });
       }
     } catch (error) {
+      console.log(error);
       const notify = () => toast.error(error.response.data.message);
       notify();
     }

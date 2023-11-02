@@ -13,7 +13,12 @@ function DeleteTask({ onClose, id, isChanged }) {
 
   const handleDeleteTask = async () => {
     try {
-      const response = await axiosInstance.delete(`/tasks/${id}`);
+      const response = await axiosInstance.delete(`/tasks/${id}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
       if (response.data.success) {
         const notify = () => toast.success("Task deleted successfully");
         notify();
