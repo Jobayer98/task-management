@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Task from "./Task";
 import Header from "./Header";
 import CreateTask from "./CreateTask";
+import { axiosInstance } from "../utils/axios";
 
 function TasksList() {
   const [tasks, setTasks] = useState([]);
@@ -10,19 +11,12 @@ function TasksList() {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [perPage, setPerPage] = useState(8);
   const [status, setStatus] = useState("");
-  const [sort, setSort] = useState("asc");
+  const [sort, setSort] = useState("desc");
 
   useEffect(() => {
     (async () => {
-      await axios
-        .get(
-          `http://localhost:3000/api/v1/tasks?limit=${perPage}&status=${status}&sortBy=${sort}`,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        )
+      await axiosInstance
+        .get(`/tasks?limit=${perPage}&status=${status}&sortBy=${sort}`)
         .then((response) => {
           setTasks(response.data.tasks);
         });
@@ -41,7 +35,7 @@ function TasksList() {
       <div>
         {showCreateModal && (
           <CreateTask
-            setChanged={setChanged}
+            isChanged={handleIsChangeTask}
             onClose={() => setShowCreateModal(false)}
           />
         )}

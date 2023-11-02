@@ -2,6 +2,7 @@ import { useState } from "react";
 import { toast } from "react-hot-toast";
 import classes from "./Modal.module.css";
 import axios from "axios";
+import { axiosInstance } from "../utils/axios";
 
 function DeleteTask({ onClose, id, isChanged }) {
   const handleClose = (e) => {
@@ -12,14 +13,7 @@ function DeleteTask({ onClose, id, isChanged }) {
 
   const handleDeleteTask = async () => {
     try {
-      const response = await axios.delete(
-        `http://localhost:3000/api/v1/tasks/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      const response = await axiosInstance.delete(`/tasks/${id}`);
       if (response.data.success) {
         const notify = () => toast.success("Task deleted successfully");
         notify();

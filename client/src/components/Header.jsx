@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { toast } from "react-hot-toast";
+import { axiosInstance } from "../utils/axios";
 
 function Header({ setTasks, showCreateModal }) {
   const [searchText, setSearchText] = useState("");
@@ -9,13 +10,8 @@ function Header({ setTasks, showCreateModal }) {
     e.preventDefault();
 
     try {
-      const response = await axios.get(
-        `http://localhost:3000/api/v1/tasks?search=${searchText}&limit=10`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
+      const response = await axiosInstance.get(
+        `tasks?search=${searchText}&limit=10`
       );
       if (response.data.success) {
         setTasks(response.data.tasks);

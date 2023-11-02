@@ -2,8 +2,9 @@ import { useState } from "react";
 import { toast } from "react-hot-toast";
 import classes from "./Modal.module.css";
 import axios from "axios";
+import { axiosInstance } from "../utils/axios";
 
-function CreateTask({ showCreateModal, onClose, isChanged }) {
+function CreateTask({ onClose, isChanged }) {
   const [task, setTask] = useState({
     title: "",
     description: "",
@@ -16,15 +17,7 @@ function CreateTask({ showCreateModal, onClose, isChanged }) {
 
   const handleCreateTask = async () => {
     try {
-      const response = await axios.post(
-        `http://localhost:3000/api/v1/task`,
-        task,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      const response = await axiosInstance.post(`/task`, task);
       if (response.data.success) {
         const notify = () => toast.success("Task created successfully");
         notify();

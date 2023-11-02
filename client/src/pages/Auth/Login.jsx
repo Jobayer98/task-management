@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import AuthContext from "../../context/AuthContext";
 import { useContext } from "react";
 import { toast } from "react-hot-toast";
-import axios from "axios";
+import { axiosInstance } from "../../utils/axios";
 
 function Login() {
   const { register, handleSubmit } = useForm();
@@ -15,10 +15,7 @@ function Login() {
   const onSubmit = async (data) => {
     // console.log(data);
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/v1/login",
-        data
-      );
+      const response = await axiosInstance.post("/login", data);
       if (response.data) {
         const notify = () => toast.success("Login successfully");
         notify();

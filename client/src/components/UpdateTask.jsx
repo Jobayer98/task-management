@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import classes from "./Modal.module.css";
-import axios from "axios";
+import { axiosInstance } from "../utils/axios";
 
 function UpdateTask({ onClose, task, isChanged }) {
   const [updateTask, setUpdateTask] = useState({
@@ -17,18 +17,13 @@ function UpdateTask({ onClose, task, isChanged }) {
 
   const handleUpdateTask = async () => {
     try {
-      const response = await axios.patch(
-        `http://localhost:3000/api/v1/tasks/${task._id}`,
-        updateTask,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
+      const response = await axiosInstance.patch(
+        `/tasks/${task._id}`,
+        updateTask
       );
 
       if (response.data.success) {
-        const notify = () => toast.success("Task deleted successfully");
+        const notify = () => toast.success("Task updated successfully");
         notify();
         onClose();
         isChanged();

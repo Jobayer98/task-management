@@ -2,7 +2,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useContext } from "react";
 import { toast } from "react-hot-toast";
-import axios from "axios";
+import { axiosInstance } from "../../utils/axios";
 import AuthContext from "../../context/AuthContext";
 
 function Signup() {
@@ -15,10 +15,7 @@ function Signup() {
   const onSubmit = async (data) => {
     // console.log(data);
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/v1/signup",
-        data
-      );
+      const response = await axiosInstance.post("/signup", data);
       if (response.data) {
         const notify = () => toast.success("Signup successfully");
         notify();
