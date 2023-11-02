@@ -52,7 +52,7 @@ The Task Management App is a web application built using React.js for the fronte
 
 ## 4. Install
 
--Clone the repository: `git clone <https://github.com/Jobayer98/task-management>`
+-Clone the repository: `git clone https://github.com/Jobayer98/task-management.git`
 
 ### Prerequisites:
 
