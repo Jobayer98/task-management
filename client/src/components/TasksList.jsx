@@ -10,12 +10,13 @@ function TasksList() {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [perPage, setPerPage] = useState(8);
   const [status, setStatus] = useState("");
+  const [sort, setSort] = useState("asc");
 
   useEffect(() => {
     (async () => {
       await axios
         .get(
-          `http://localhost:3000/api/v1/tasks?limit=${perPage}&status=${status}`,
+          `http://localhost:3000/api/v1/tasks?limit=${perPage}&status=${status}&sortBy=${sort}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -26,7 +27,7 @@ function TasksList() {
           setTasks(response.data.tasks);
         });
     })();
-  }, [change, perPage, status]);
+  }, [change, perPage, status, sort]);
 
   const handleIsChangeTask = () => {
     setChanged(!change);
@@ -50,6 +51,19 @@ function TasksList() {
         />
       </div>
       <div className="flex gap-8 justify-end items-center p-4 border-2 mt-2">
+        <div>
+          <label htmlFor="sort">Sort by created</label>
+          <select
+            value={sort}
+            className="bg-gray-100 rounded outline-none border border-gray-400 ml-2"
+            name="sort"
+            id=""
+            onChange={(e) => setSort(e.target.value)}
+          >
+            <option value="asc">Ascending</option>
+            <option value="desc">Descending</option>
+          </select>
+        </div>
         <div>
           <label htmlFor="">Show per page</label>
           <input
