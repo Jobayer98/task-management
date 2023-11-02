@@ -1,14 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AuthContext from "./AuthContext";
+import { axiosInstance } from "../utils/axios";
+import toast from "react-hot-toast";
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-
-  if (!user) {
-    const userInfo = JSON.parse(localStorage.getItem("user")) || null;
-    setUser(userInfo);
-  }
-
   const signup = (data) => {
     setUser(data);
   };
@@ -16,10 +12,21 @@ const AuthProvider = ({ children }) => {
     setUser(data);
   };
 
-  const logout = async () => {};
+  const logout = async () => {
+    localStorage.clear();
+    await axiosInstance.get("/logout").then((res) => {
+      if (res.data.success) {
+        const notify = () => toast.success("Logout successfully");
+        notify();
+      }
+    });
+  };
+
+  const haveUser = localStorage.getItem("user");
 
   const userInfo = {
     user,
+    setUser,
     signup,
     login,
     logout,

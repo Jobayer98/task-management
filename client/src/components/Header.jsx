@@ -1,10 +1,13 @@
-import axios from "axios";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { toast } from "react-hot-toast";
 import { axiosInstance } from "../utils/axios";
+import AuthContext from "../context/AuthContext";
+import { useNavigate } from "react-router";
 
 function Header({ setTasks, showCreateModal }) {
   const [searchText, setSearchText] = useState("");
+  const { logout } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -21,6 +24,11 @@ function Header({ setTasks, showCreateModal }) {
       notify();
       onClose();
     }
+  };
+
+  const handleLogout = async () => {
+    logout();
+    navigate("/login", { replace: true });
   };
   return (
     <div className="py-4 bg-gray-200 px-20">
@@ -44,9 +52,17 @@ function Header({ setTasks, showCreateModal }) {
         <div>
           <button
             onClick={() => showCreateModal(true)}
-            className="p-3 px-3 w-32 bg-gray-200 rounded border border-gray-400 hover:bg-white transition-all duration-300 ease-in"
+            className="py-2 px-3 w-32 bg-gray-200 rounded border border-gray-400 hover:bg-white transition-all duration-300 ease-in"
           >
             Create Task
+          </button>
+        </div>
+        <div>
+          <button
+            onClick={handleLogout}
+            className=" ml-3 py-2 px-3 w-32 bg-gray-200 rounded border border-gray-400 hover:bg-white transition-all duration-300 ease-in"
+          >
+            Logout
           </button>
         </div>
       </div>

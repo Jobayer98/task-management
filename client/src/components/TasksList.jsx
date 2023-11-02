@@ -1,10 +1,10 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import Task from "./Task";
 import Header from "./Header";
 import CreateTask from "./CreateTask";
 import { axiosInstance } from "../utils/axios";
 import Pagination from "./Pagination";
+import toast from "react-hot-toast";
 
 function TasksList() {
   const [tasks, setTasks] = useState([]);
@@ -25,9 +25,14 @@ function TasksList() {
         .then((response) => {
           setTasks(response.data.tasks);
           setTotalTasks(response.data.totalTasks);
+        })
+        .catch((err) => {
+          console.log(err);
+          // notify = () => toast.error(err.message);
+          // notify();
         });
     })();
-  }, [change, perPage, status, sort, page]);
+  }, [change, perPage, sort, page, status]);
 
   const handleIsChangeTask = () => {
     setChanged(!change);
