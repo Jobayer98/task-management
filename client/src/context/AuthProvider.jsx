@@ -13,7 +13,6 @@ const AuthProvider = ({ children }) => {
   };
 
   const logout = async () => {
-    localStorage.clear();
     await axiosInstance
       .get("/logout", {
         headers: {
@@ -24,6 +23,7 @@ const AuthProvider = ({ children }) => {
         if (res.data.success) {
           const notify = () => toast.success("Logout successfully");
           notify();
+          localStorage.clear();
         }
       });
   };
