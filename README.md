@@ -1,5 +1,7 @@
 # Task Management App
 
+## Api Documentations [link](https://jobayer98.github.io/task-management/)
+
 ## 1. Introduction
 
 The Task Management App is a web application built using React.js for the frontend and Express.js with MongoDB for the backend. It allows users to manage their tasks efficiently, offering features such as user authentication, task creation, updating, and deletion, as well as search, sorting, and pagination.
