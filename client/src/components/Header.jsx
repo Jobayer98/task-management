@@ -14,7 +14,13 @@ function Header({ setTasks, showCreateModal }) {
 
     try {
       const response = await axiosInstance.get(
-        `tasks?search=${searchText}&limit=10`
+        `/tasks?search=${searchText}&limit=10`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
       );
       if (response.data.success) {
         setTasks(response.data.tasks);

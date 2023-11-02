@@ -14,12 +14,18 @@ const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     localStorage.clear();
-    await axiosInstance.get("/logout").then((res) => {
-      if (res.data.success) {
-        const notify = () => toast.success("Logout successfully");
-        notify();
-      }
-    });
+    await axiosInstance
+      .get("/logout", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((res) => {
+        if (res.data.success) {
+          const notify = () => toast.success("Logout successfully");
+          notify();
+        }
+      });
   };
 
   const haveUser = localStorage.getItem("user");
