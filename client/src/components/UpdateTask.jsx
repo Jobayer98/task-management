@@ -15,6 +15,14 @@ function UpdateTask({ onClose, task, isChanged }) {
     }
   };
 
+  const btnDisable =
+    updateTask.title.trim().length > 0 &&
+    updateTask.description.trim().length > 0 &&
+    updateTask.title &&
+    updateTask.description
+      ? false
+      : true;
+
   const handleUpdateTask = async () => {
     try {
       const response = await axiosInstance.patch(
@@ -43,7 +51,7 @@ function UpdateTask({ onClose, task, isChanged }) {
   };
   return (
     <div onClick={handleClose} className={classes.backdrop}>
-      <div className="fixed bg-white py-2 px-6 rounded shadow border w-1/3 h-80 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+      <div className="fixed bg-white py-2 px-6 rounded shadow border w-1/2 h-80 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
         <div>
           <label htmlFor="title" className="text-xl font-medium mb-2 block">
             Title
@@ -89,7 +97,10 @@ function UpdateTask({ onClose, task, isChanged }) {
         <div className="mt-4 text-right">
           <button
             onClick={handleUpdateTask}
-            className="bg-gray-500 text-white px-4 py-2 rounded"
+            disabled={btnDisable}
+            className={`bg-gray-600 ${
+              btnDisable && "cursor-not-allowed"
+            } hover:bg-gray-700 text-white px-4 py-2 rounded`}
           >
             Update
           </button>

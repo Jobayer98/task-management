@@ -15,6 +15,14 @@ function CreateTask({ onClose, isChanged }) {
     }
   };
 
+  const btnDisable =
+    task.title.trim().length > 0 &&
+    task.description.trim().length > 0 &&
+    task.title &&
+    task.description
+      ? false
+      : true;
+
   const handleCreateTask = async () => {
     try {
       const response = await axiosInstance.post(`/task`, task, {
@@ -37,7 +45,7 @@ function CreateTask({ onClose, isChanged }) {
   };
   return (
     <div onClick={handleClose} className={classes.backdrop}>
-      <div className="fixed bg-white py-2 px-6 rounded shadow border w-1/3 h-72 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+      <div className="fixed bg-white py-2 px-6 rounded shadow border w-1/2 h-72 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
         <div>
           <label htmlFor="title" className="text-xl font-medium mb-2 block">
             Title
@@ -63,7 +71,10 @@ function CreateTask({ onClose, isChanged }) {
         <div className="mt-8 text-right">
           <button
             onClick={handleCreateTask}
-            className="bg-gray-500 hover:bg-gray-700 text-white px-4 py-2 rounded"
+            disabled={btnDisable}
+            className={`bg-gray-600 ${
+              btnDisable && "cursor-not-allowed"
+            } hover:bg-gray-700 text-white px-4 py-2 rounded`}
           >
             Create
           </button>
