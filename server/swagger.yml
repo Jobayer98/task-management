@@ -5,7 +5,7 @@ info:
   description: API for managing tasks.
 
 paths:
-  /api/signup:
+  /api/v1/signup:
     post:
       summary: Create a new user account.
       requestBody:
@@ -17,7 +17,7 @@ paths:
         '200':
           description: User created successfully.
 
-  /api/login:
+  /api/v1/login:
     post:
       summary: Authenticate a user and return a JWT.
       requestBody:
@@ -29,13 +29,14 @@ paths:
         '200':
           description: JWT token issued.
 
-  /api/tasks:
+  /api/v1/tasks:
     get:
       summary: Retrieve a list of tasks.
       responses:
         '200':
           description: List of tasks.
 
+  /api/v1/task:
     post:
       summary: Create a new task.
       requestBody:
@@ -47,7 +48,7 @@ paths:
         '201':
           description: Task created.
 
-  /api/tasks/{taskId}:
+  /api/tasks/{id}:
     get:
       summary: Retrieve a specific task.
       parameters:
