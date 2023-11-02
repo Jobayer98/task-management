@@ -64,7 +64,7 @@ const getTasks = async (req, res, next) => {
       }
 
       if (sortBy) {
-        sort.createdAt = sortBy === "desc" ? -1 : 1;
+        sort.createdAt = sortBy === "asc" ? 1 : -1;
       }
       await req.user.populate({
         path: "tasks",
@@ -132,10 +132,11 @@ const getTask = async (req, res, next) => {
 const updateTask = async (req, res, next) => {
   try {
     const { id } = req.params;
+    const { title, description, status } = req.body;
 
     const task = await taskModel.findOneAndUpdate(
       { _id: id, user: req.user._id },
-      ...req.body,
+      { title, description, status },
       { new: true, runValidators: true }
     );
 
