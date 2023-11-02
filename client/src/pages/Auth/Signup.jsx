@@ -1,4 +1,4 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useContext } from "react";
 import { toast } from "react-hot-toast";
@@ -8,24 +8,21 @@ import AuthContext from "../../context/AuthContext";
 function Signup() {
   const { register, handleSubmit } = useForm();
   const { login } = useContext(AuthContext);
-  const location = useLocation();
   const navigate = useNavigate();
-
-  const from = location.state?.from?.pathname || "/";
   const onSubmit = async (data) => {
     // console.log(data);
     try {
       const response = await axiosInstance.post("/signup", data);
-      if (response.data) {
+      if (response.data.success) {
         const notify = () => toast.success("Signup successfully");
         notify();
         localStorage.setItem("token", response.data.token);
         login(response.data.user);
-        localStorage.setItem("user", JSON.stringify(response.data.user));
-        navigate(from, { replace: true });
+        navigate("/", { replace: true });
       }
     } catch (error) {
-      const notify = () => toast.error("Something went wrong");
+      console.log(error);
+      const notify = () => toast.error(error.response.data.message);
       notify();
     }
   };

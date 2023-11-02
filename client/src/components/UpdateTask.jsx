@@ -19,7 +19,14 @@ function UpdateTask({ onClose, task, isChanged }) {
     try {
       const response = await axiosInstance.patch(
         `/tasks/${task._id}`,
-        updateTask
+
+        updateTask,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
       );
 
       if (response.data.success) {

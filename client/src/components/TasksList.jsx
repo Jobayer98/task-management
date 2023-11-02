@@ -20,16 +20,21 @@ function TasksList() {
     (async () => {
       await axiosInstance
         .get(
-          `/tasks?limit=${perPage}&status=${status}&sortBy=${sort}&page=${page}`
+          `/tasks?limit=${perPage}&status=${status}&sortBy=${sort}&page=${page}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
         )
         .then((response) => {
           setTasks(response.data.tasks);
           setTotalTasks(response.data.totalTasks);
         })
         .catch((err) => {
-          console.log(err);
-          // notify = () => toast.error(err.message);
-          // notify();
+          notify = () => toast.error(err.message);
+          notify();
         });
     })();
   }, [change, perPage, sort, page, status]);

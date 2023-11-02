@@ -3,6 +3,7 @@ import { AiOutlineEdit } from "react-icons/ai";
 import { MdDeleteOutline } from "react-icons/md";
 import DeleteTask from "./DeleteTask";
 import UpdateTask from "./UpdateTask";
+import TimeAgo from "./TimeAgo";
 
 function Task({ task, isChanged }) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -14,7 +15,7 @@ function Task({ task, isChanged }) {
   };
 
   return (
-    <div className="bg-gray-100 py-4 px-6 rounded shadow border hover:bg-gray-300 transition-all duration-500 ease-in-out">
+    <div className="relative bg-gray-100 py-4 px-6 rounded shadow border hover:bg-gray-300 transition-all duration-500 ease-in-out">
       <div
         onClick={() => setShowUpdateModal(true)}
         className="float-right tooltip"
@@ -42,6 +43,7 @@ function Task({ task, isChanged }) {
       >
         {task.status}
       </p>
+
       <div>
         {showDeleteModal && (
           <DeleteTask onClose={onClose} id={task._id} isChanged={isChanged} />
@@ -49,6 +51,9 @@ function Task({ task, isChanged }) {
         {showUpdateModal && (
           <UpdateTask onClose={onClose} task={task} isChanged={isChanged} />
         )}
+      </div>
+      <div className="absolute bottom-1 right-2 text-gray-400">
+        <TimeAgo timestamp={task.updatedAt} />
       </div>
     </div>
   );
