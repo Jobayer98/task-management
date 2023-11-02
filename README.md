@@ -52,6 +52,8 @@ The Task Management App is a web application built using React.js for the fronte
 
 ## 4. Install
 
+-Clone the repository: `git clone <https://github.com/Jobayer98/task-management>`
+
 ### Prerequisites:
 
 - Node.js and npm installed.
@@ -59,15 +61,14 @@ The Task Management App is a web application built using React.js for the fronte
 
 ### Backend Setup:
 
-1. Clone the repository: `git clone <repository-url>`
-2. Navigate to the backend directory: `cd backend`
-3. Install dependencies: `npm install`
-4. Create a `.env` file in the `backend` directory with the following configuration:
-5. Start the server: 1.Prod server `npm start` 2.Dev server
+1. Navigate to the backend directory: `cd server`
+2. Install dependencies: `npm install`
+3. Create a `.env` file in the `server` directory with the following configuration:
+4. Start the server: 1.Prod server `npm start` 2.Dev server `npm run dev`
 
 ### Frontend Setup:
 
-1. Navigate to the frontend directory: `cd frontend`
+1. Navigate to the frontend directory: `cd client`
 2. Install dependencies: `npm install`
 3. Start the React development server: `npm run dev`
 
