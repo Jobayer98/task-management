@@ -1,13 +1,19 @@
-import React from "react";
-
-function Pagination() {
+function Pagination({ perPage, totalTask, onChangePage }) {
+  const pages = Math.ceil(totalTask / perPage);
   return (
     <div className="flex justify-center items-center mb-3">
       <div className="join">
-        <button className="join-item btn btn-sm">1</button>
-        <button className="join-item btn btn-sm btn-active">2</button>
-        <button className="join-item btn btn-sm">3</button>
-        <button className="join-item btn btn-sm">4</button>
+        {pages
+          ? [...Array(pages)].map((_, index) => (
+              <input
+                type="button"
+                className={`join-item btn btn-sm `}
+                key={index}
+                value={index + 1}
+                onClick={() => onChangePage(index + 1)}
+              />
+            ))
+          : 1}
       </div>
     </div>
   );

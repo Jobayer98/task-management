@@ -4,24 +4,30 @@ import Task from "./Task";
 import Header from "./Header";
 import CreateTask from "./CreateTask";
 import { axiosInstance } from "../utils/axios";
+import Pagination from "./Pagination";
 
 function TasksList() {
   const [tasks, setTasks] = useState([]);
+  const [totalTask, setTotalTasks] = useState(0);
   const [change, setChanged] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [perPage, setPerPage] = useState(8);
+  const [page, setPage] = useState(1);
   const [status, setStatus] = useState("");
   const [sort, setSort] = useState("desc");
 
   useEffect(() => {
     (async () => {
       await axiosInstance
-        .get(`/tasks?limit=${perPage}&status=${status}&sortBy=${sort}`)
+        .get(
+          `/tasks?limit=${perPage}&status=${status}&sortBy=${sort}&page=${page}`
+        )
         .then((response) => {
           setTasks(response.data.tasks);
+          setTotalTasks(response.data.totalTasks);
         });
     })();
-  }, [change, perPage, status, sort]);
+  }, [change, perPage, status, sort, page]);
 
   const handleIsChangeTask = () => {
     setChanged(!change);
@@ -50,7 +56,11 @@ function TasksList() {
           showCreateModal={() => setShowCreateModal(true)}
         />
       </div>
+
       <div className="flex gap-8 justify-end items-center p-4 border-2 mt-2">
+        <div className="text-left">
+          <p className="text-lg text-blue-600">Page {page}</p>
+        </div>
         <div>
           <label htmlFor="sort">Sort by created</label>
           <select
@@ -94,6 +104,11 @@ function TasksList() {
       <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 p-8">
         {content}
       </div>
+      <Pagination
+        perPage={perPage}
+        totalTask={totalTask}
+        onChangePage={(page) => setPage(page)}
+      />
     </>
   );
 }
