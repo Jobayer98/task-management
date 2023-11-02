@@ -14,7 +14,7 @@ function Task({ task, isChanged }) {
   };
 
   return (
-    <div className="bg-blue-50 py-4 px-6 rounded shadow border">
+    <div className="bg-gray-100 py-4 px-6 rounded shadow border hover:bg-gray-300 transition-all duration-500 ease-in-out">
       <div
         onClick={() => setShowUpdateModal(true)}
         className="float-right tooltip"

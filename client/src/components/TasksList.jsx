@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Task from "./Task";
+import Header from "./Header";
 
 function TasksList() {
   const [tasks, setTasks] = useState([]);
@@ -29,6 +30,7 @@ function TasksList() {
   ));
   return (
     <>
+      <Header setTasks={setTasks} />
       <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 p-8">
         {content}
       </div>
