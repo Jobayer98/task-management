@@ -21,6 +21,7 @@ function Signup() {
         notify();
         localStorage.setItem("token", response.data.token);
         login(response.data.user);
+        localStorage.setItem("user", JSON.stringify(response.data.user));
         navigate(from, { replace: true });
       }
     } catch (error) {

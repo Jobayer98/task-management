@@ -19,8 +19,10 @@ function Login() {
       if (response.data) {
         const notify = () => toast.success("Login successfully");
         notify();
+        localStorage.clear();
         localStorage.setItem("token", response.data.token);
         login(response.data.user);
+        localStorage.setItem("user", JSON.stringify(response.data.user));
         navigate(from, { replace: true });
       }
     } catch (error) {

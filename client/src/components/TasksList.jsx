@@ -27,6 +27,12 @@ function TasksList() {
     setChanged(!change);
   };
 
+  if (!tasks.length || !tasks) {
+    return (
+      <span className="loading loading-spinner text-primary ml-[50%] my-48"></span>
+    );
+  }
+
   const content = tasks.map((task) => (
     <Task key={task._id} task={task} isChanged={handleIsChangeTask} />
   ));

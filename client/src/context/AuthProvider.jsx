@@ -4,6 +4,11 @@ import AuthContext from "./AuthContext";
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
+  if (!user) {
+    const userInfo = JSON.parse(localStorage.getItem("user")) || null;
+    setUser(userInfo);
+  }
+
   const signup = (data) => {
     setUser(data);
   };
