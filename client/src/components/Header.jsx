@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { toast } from "react-hot-toast";
 
-function Header({ setTasks }) {
+function Header({ setTasks, showCreateModal }) {
   const [searchText, setSearchText] = useState("");
 
   const handleSearch = async (e) => {
@@ -46,7 +46,10 @@ function Header({ setTasks }) {
           </button>
         </form>
         <div>
-          <button className="p-3 px-3 w-32 bg-gray-200 rounded border border-gray-400 hover:bg-white transition-all duration-300 ease-in">
+          <button
+            onClick={() => showCreateModal(true)}
+            className="p-3 px-3 w-32 bg-gray-200 rounded border border-gray-400 hover:bg-white transition-all duration-300 ease-in"
+          >
             Create Task
           </button>
         </div>
