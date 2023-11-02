@@ -17,7 +17,12 @@ function CreateTask({ onClose, isChanged }) {
 
   const handleCreateTask = async () => {
     try {
-      const response = await axiosInstance.post(`/task`, task);
+      const response = await axiosInstance.post(`/task`, task, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
       if (response.data.success) {
         const notify = () => toast.success("Task created successfully");
         notify();
